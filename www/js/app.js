@@ -50,12 +50,12 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.se
         }
       })
 
-      .state('tab.chats', {
-        url: '/chats',
+      .state('tab.forecast', {
+        url: '/forecast',
         views: {
-          'tab-chats': {
-            templateUrl: 'templates/tab-chats.html',
-            controller: 'ChatsCtrl'
+          'tab-forecast': {
+            templateUrl: 'templates/tab-forecast.html',
+            controller: 'ForecastCtrl'
           }
         }
       })
@@ -85,12 +85,15 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.se
   });
 
 
+//TODO move this filter into its own module
 app.filter("camelToNormal", function(){
   return function(text) {
     var newText = text.replace(/([A-Z])/g, ' $1');
     newText.replace(/^./, function (str) {
       return str.toUpperCase();
     });
-    return newText.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});;
+    return newText.replace(/\w\S*/g, function (txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
   };
 });
