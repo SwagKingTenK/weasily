@@ -4,6 +4,7 @@ angular.module('starter.controllers', ['starter.services'])
 
     //Start of location shit
     //TODO move all of this shit into a service somehow
+    var defaultCoords = [28.2527, 85.7585]; // default coords is Louisville L&L
     var posOptions = {
       enableHighAccuracy: true,
       timeout: 5000,
@@ -13,50 +14,86 @@ angular.module('starter.controllers', ['starter.services'])
     document.addEventListener("deviceready", onDeviceReady, false);
 
     function onDeviceReady() {
-       navigator.geolocation.getCurrentPosition(onSuccess, Error, posOptions);
+      navigator.geolocation.getCurrentPosition(onSuccess, Error, posOptions);
     }
+
     function onSuccess(pos) {
+
       $scope.lat = pos.coords.latitude;
       $scope.lng = pos.coords.longitude;
+
       //TODO cache this
       Weather.getCurrent($scope.lat, $scope.lng)
-        .success(function(data){
+        .success(function (data) {
           $scope.currentWeatherData = data.currently;
-          // formulateWeather(data);
+        })
+        .error(function (error) {
+          //TODO handle error fetch forecast.io crap  
         })
     }
-    
-    // function formulateWeather(data){
-    // }
 
     function Error(error) {
-      //TODO catch error w/ pretty popup..
-      // $ionicPopup.show({
-      
-      //   title: "No location availabe..",
-      //   subTitle: "Please enable location services for the application.",
-      //   scope: $scope,
-      //   buttons: {text: "Okay"}
-      // });
+      console.log('error');
+      Weather.getCurrent(defaultCoords[0], defaultCoords[1])
+        .success(function (data) {
+          $scope.currentWeatherData = data.currently;
+        })
+        .error(function (error) {
+          //TODO catch error w/ pretty popup..
+        })
     }
 
     //End of location shit
 
   })
 
-  .controller('ChatsCtrl', function ($scope, Chats) {
-    // With the new view caching in Ionic, Controllers are only called
-    // when they are recreated or on app start, instead of every page change.
-    // To listen for when this page is active (for example, to refresh data),
-    // listen for the $ionicView.enter event:
-    //
-    //$scope.$on('$ionicView.enter', function(e) {
-    //});
+  .controller('ForecastCtrl', function ($scope, Location, Weather) {
+    //Start of location shit
+    //TODO move all of this shit into a service somehow
+    var defaultCoords = [28.2527, 85.7585]; // default coords is Louisville L&L
+    console.log('crtl');
 
-    $scope.chats = Chats.all();
-    $scope.remove = function (chat) {
-      Chats.remove(chat);
+    var posOptions = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0
     };
+
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    function onDeviceReady() {
+      console.log("dr");
+      navigator.geolocation.getCurrentPosition(onSuccess, Error, posOptions);
+    }
+
+    function onSuccess(pos) {
+
+      console.log("success");
+      $scope.lat = pos.coords.latitude;
+      $scope.lng = pos.coords.longitude;
+
+      //TODO cache this
+      Weather.getCurrent($scope.lat, $scope.lng)
+        .success(function (data) {
+          $scope.currentWeatherData = data.daily.data;
+        })
+        .error(function (error) {
+          //TODO handle error fetch forecast.io crap  
+        })
+    }
+
+    function Error(error) {
+      console.log('error');
+      Weather.getCurrent(defaultCoords[0], defaultCoords[1])
+        .success(function (data) {
+          $scope.currentWeatherData = data.daily;
+        })
+        .error(function (error) {
+          //TODO catch error w/ pretty popup..
+        })
+    }
+
+    //End of location shit
   })
 
   .controller('ChatDetailCtrl', function ($scope, $stateParams, Chats) {

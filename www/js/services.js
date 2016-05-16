@@ -1,7 +1,7 @@
 angular.module('starter.services', [])
 
   .service('Location', function () {
-     this.getLoc = function () {
+    this.getLoc = function () {
       this.posOptions = {
         enableHighAccuracy: true,
         timeout: 20000,
@@ -23,13 +23,12 @@ angular.module('starter.services', [])
     }
   })
 
-  .service('Weather', function($http){
-    
-    return({
+  .service('Weather', function ($http) {
+
+    return ({
       getCurrent: getCurrent
     });
-    
- 
+
 
     function getCurrent(lat, lng) {
       var baseUrl = "https://api.forecast.io/forecast/bbdee2e597ea20b7dab870ccf6851838/";
@@ -37,12 +36,22 @@ angular.module('starter.services', [])
       var request = $http({
         method: 'get',
         url: baseUrl + lat + "," + lng,
-        params: {
-        } 
+        params: {}
       });
       return request;
     }
-    
+
+    // function getForecast(lat, lng) {
+    //   var baseUrl = "https://api.forecast.io/forecast/bbdee2e597ea20b7dab870ccf6851838/";
+    //   //TODO work on these damn responses
+    //   var request = $http({
+    //     method: 'get',
+    //     url: baseUrl + lat + "," + lng,
+    //     params: {}
+    //   });
+    //   return request;
+    // }
+
   })
 
   .factory('Chats', function () {

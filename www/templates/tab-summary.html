@@ -3,7 +3,7 @@
     <h2>Current Forecast</h2>
     <label class="item item-input item-input-inset">
       <span class="input-label">Filter Results</span>
-      <input type="text" ng-model="currentQuery"></label>
+      <input type="text" ng-model="currentQuery">
     </label>
     <ion-list class="list list-inset">
       <ion-item class="item" ng-repeat="(key, value) in currentWeatherData">{{key | camelToNormal }}: {{value}}</ion-item>
