@@ -5,14 +5,14 @@
       <span class="input-label">Filter Results</span>
       <input type="text" ng-model="currentQuery">
     </label>
-    <ion-list class="list list-inset">
-      <ion-item class="item" ng-repeat="(key, value) in currentWeatherData">
-        <ion-list class="list list-inset">
-          <ion-header-bar>{{value.time | utcToDay}}</ion-header-bar>
-          <ion-item style="background-color: #eeeeee" ng-repeat="(key, value) in value">
-            {{key | camelToNormal}}: {{value}}
-          </ion-item>
-        </ion-list>
+    <ion-list class="list list-inset ">
+      <ion-item class="item forecast-day" ng-repeat="(key, value) in currentWeatherData">
+        <div class="item item-divider">
+          {{value.time | utcToDay}}
+        </div>
+        <ion-item ng-repeat="(key, value) in value">
+          <span>{{key | camelToNormal}}: {{value}}</span>
+        </ion-item>
       </ion-item>
     </ion-list>
   </ion-content>
