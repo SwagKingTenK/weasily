@@ -49,6 +49,10 @@ angular.module('starter.controllers', ['starter.services'])
 
   .controller('ForecastCtrl', function ($scope, Location, Weather) {
     //Start of location shit
+    function timestampToDay(timestamp) {
+      return new Date(timestamp * 1000).getDay();
+    }
+    
     //TODO move all of this shit into a service somehow
     var defaultCoords = [28.2527, 85.7585]; // default coords is Louisville L&L
     console.log('crtl');

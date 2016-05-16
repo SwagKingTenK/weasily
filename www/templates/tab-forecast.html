@@ -6,7 +6,13 @@
       <input type="text" ng-model="currentQuery">
     </label>
     <ion-list class="list list-inset">
-      <ion-item class="item" ng-repeat="(key, value) in currentWeatherData">{{key | camelToNormal }}: {{value}}
+      <ion-item class="item" ng-repeat="(key, value) in currentWeatherData">
+        <ion-list class="list list-inset">
+          <ion-header-bar>{{value.time | utcToDay}}</ion-header-bar>
+          <ion-item style="background-color: #eeeeee" ng-repeat="(key, value) in value">
+            {{key | camelToNormal}}: {{value}}
+          </ion-item>
+        </ion-list>
       </ion-item>
     </ion-list>
   </ion-content>

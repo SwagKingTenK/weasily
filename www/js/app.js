@@ -59,7 +59,7 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.se
           }
         }
       })
-     
+
       .state('tab.account', {
         url: '/account',
         views: {
@@ -87,4 +87,11 @@ app.filter("camelToNormal", function(){
       return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });
   };
+});
+
+app.filter("utcToDay", function () {
+  return function (timestamp) {
+    var dow = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    return dow[new Date(timestamp * 1000).getDay()];
+  }
 });
