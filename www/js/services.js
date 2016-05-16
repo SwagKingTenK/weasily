@@ -1,25 +1,30 @@
 angular.module('starter.services', [])
 
-  .service('Location', function () {
-    this.getLoc = function () {
-      this.posOptions = {
-        enableHighAccuracy: true,
-        timeout: 20000,
-        maximumAge: 0
-      };
-      navigator.geolocation.getCurrentPosition(onSuccess, Error, this.posOptions);
-      function onSuccess(pos) {
-        loc.push(pos.coords.latitude);
-        loc.push(pos.coords.longitude);
-        console.log(loc);
+  .factory('Location', function ($ionicPlatform, $q) {
+
+    var positionOptions = {timeout: 10000, enableHighAccuracy: true, maximumAge: 0};
+
+    return {
+      getPosition: function () {
+        var loc = [0, 0];
+        var locSet = $q.defer();
+        return $ionicPlatform.ready()
+          .then(function () {
+            navigator.geolocation.getCurrentPosition(onSuccess, onError, positionOptions);
+            return locSet.promise.then(function () {
+              return loc;
+            })
+          });
+        function onSuccess(coords) {
+          loc[0] = coords.coords.latitude;
+          loc[1] = coords.coords.longitude;
+          locSet.resolve();
+        }
+
+        function onError(error) {
+          locSet.resolve();
+        }
       }
-
-      function Error(error) {
-        console.log(error);
-      }
-
-
-      return loc;
     }
   })
 

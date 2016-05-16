@@ -75,6 +75,8 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.se
 
   });
 
+app;
+
 
 //TODO move this filter into its own module
 app.filter("camelToNormal", function(){
