@@ -75,8 +75,6 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.se
 
   });
 
-app;
-
 
 //TODO move this filter into its own module
 app.filter("camelToNormal", function(){
@@ -97,3 +95,7 @@ app.filter("utcToDay", function () {
     return dow[new Date(timestamp * 1000).getDay()];
   }
 });
+
+app.config(['$ionicConfigProvider', function($ionicConfigProvider){
+  $ionicConfigProvider.tabs.position('bottom'); // other values: top 
+}]);
