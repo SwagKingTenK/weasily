@@ -3,11 +3,18 @@ angular.module('starter.services', [])
   .factory('Location', function ($ionicPlatform, $q) {
 
     var positionOptions = {timeout: 10000, enableHighAccuracy: true, maximumAge: 0};
-
+    var loc = [null, null];
+    
     return {
       getPosition: function () {
-        var loc = [0, 0];
         var locSet = $q.defer();
+        //if the location has been set 
+        if (loc != [null, null]) {
+          locSet.resolve(); //resolve the promise
+          return locSet.promise.then(function () {
+            return loc;  //return our location
+          })
+        }
         return $ionicPlatform.ready()
           .then(function () {
             navigator.geolocation.getCurrentPosition(onSuccess, onError, positionOptions);
@@ -22,6 +29,7 @@ angular.module('starter.services', [])
         }
 
         function onError(error) {
+          loc = [0, 0];
           locSet.resolve();
         }
       }
