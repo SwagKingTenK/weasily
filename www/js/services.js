@@ -6,7 +6,7 @@ angular.module('starter.services', [])
 
     return {
       getPosition: function () {
-        var loc = [0, 0];
+        var loc;
         var locSet = $q.defer();
         return $ionicPlatform.ready()
           .then(function () {
@@ -22,8 +22,13 @@ angular.module('starter.services', [])
         }
 
         function onError(error) {
+          loc = [38, 85];
           locSet.resolve();
         }
+      },
+      
+      setPosition: function () {
+         
       }
     }
   })
@@ -41,7 +46,9 @@ angular.module('starter.services', [])
       var request = $http({
         method: 'get',
         url: baseUrl + lat + "," + lng,
-        params: {}
+        params: {
+          exclude: ['minutely', 'hourly'],
+        }
       });
       return request;
     }
