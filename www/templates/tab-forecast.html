@@ -1,12 +1,8 @@
 <ion-view view-title="Forecast">
   <ion-content class="padding">
     <h2>Current Forecast</h2>
-    <label class="item item-input item-input-inset">
-      <span class="input-label">Filter Results</span>
-      <input type="text" ng-model="currentQuery">
-    </label>
     <ion-list class="list list-inset ">
-      <ion-item class="item forecast-day" ng-repeat="(key, value) in currentWeatherData">
+      <ion-item class="item forecast-day row-no-padding" ng-repeat="(key, value) in currentWeatherData">
         <div class="item item-divider">
           {{value.time | utcToDay}}
         </div>
