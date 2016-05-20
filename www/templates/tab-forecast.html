@@ -2,13 +2,42 @@
   <ion-content class="padding">
     <h2>Current Forecast</h2>
     <ion-list class="list list-inset ">
-      <ion-item class="item forecast-day row-no-padding" ng-repeat="(key, value) in currentWeatherData">
+      <ion-item class="item forecast-day row-no-padding" ng-repeat="(key, value) in forecastWeatherData">
+
         <div class="item item-divider">
           {{value.time | utcToDay}}
         </div>
-        <ion-item ng-repeat="(key, value) in value">
-          <span>{{key | camelToNormal}}: {{value}}</span>
+
+        <ion-item class="item-icon-left">
+          <i class="ion-chatbox icon"></i>
+          <span style="float: right">{{value.summary}}</span>
         </ion-item>
+
+        <ion-item class="item-icon-left">
+          <i class="ion-thermometer icon"></i>
+          <span style="float: right">{{value.temperatureMax}}° | {{value.temperatureMin}}°</span>
+        </ion-item>
+
+        <ion-item class="item-icon-left">
+          <i class="ion-umbrella icon"></i>
+          <span style="float: right">{{value.precipProbability | decToPercent}}</span>
+        </ion-item>
+
+        <ion-item class="item-icon-left">
+          <i class="icon ion-flag"></i>
+          <span style="float: right">{{value.windSpeed}} MPH</span>
+        </ion-item>
+
+        <ion-item class="item-icon-left">
+          <i class="icon ion-waterdrop"></i>
+          <span style="float: right">{{value.humidity | decToPercent}}</span>
+        </ion-item>
+
+        <ion-item class="item-icon-left">
+          <i class="icon ion-eye"></i>
+          <span style="float: right">{{value.visibility}} MILES</span>
+        </ion-item>
+
       </ion-item>
     </ion-list>
   </ion-content>
