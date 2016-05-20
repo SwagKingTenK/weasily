@@ -3,9 +3,9 @@
     <h2>Current Forecast</h2>
     <ion-header-bar>Refreshed: {{currentWeatherData.time | utcToTime}}</ion-header-bar>
     <ion-list class="list list-inset">
-      <ion-item>
-        <skycon icon="currentWeatherData.icon"></skycon>
-        {{currentWeatherData.summary}} and {{currentWeatherData.temperature}}°
+      <ion-item class="item-icon-left">
+        <skycon class="icon" color="blue" icon="currentWeatherData.icon"></skycon>
+        <span style="float: right">{{currentWeatherData.summary}} and {{currentWeatherData.temperature}}°</span>
       </ion-item>
     </ion-list>
   </ion-content>
