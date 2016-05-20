@@ -7,12 +7,25 @@ app.controller('SummaryCtrl', function ($scope, Weather, Location) {
     .then(function (coords) {
       Weather.getCurrent(coords[0], coords[1])
         .success(function (data) {
-          $scope.currentWeatherData = data.currently;
+          setupData(data.currently);
         })
         .error(function (error) {
           //TODO handle error fetch forecast.io crap
         })
-    })
+    });
+
+  function setupData(data) {
+    $scope.currentWeatherData = {
+      time: data.time,
+      summary: data.summary,
+      icon: data.icon,
+      precipProb: data.precipProbability,
+      temperature: data.temperature,
+      humidity: data.humidity,
+      windSpeed: data.windSpeed,
+      vis: data.visibility,
+    };
+  }
 });
 
 app.controller('ForecastCtrl', function ($scope, Location, Weather) {

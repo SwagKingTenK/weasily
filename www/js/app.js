@@ -112,6 +112,12 @@ app.filter("utcToTime", function () {
   }
 });
 
+app.filter("decToPercent", function () {
+  return function (dec) {
+    return dec * 100 + "%";
+  }
+});
+
 app.config(['$ionicConfigProvider', function($ionicConfigProvider){
   $ionicConfigProvider.tabs.position('bottom'); // other values: top
 }]);
