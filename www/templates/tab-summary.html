@@ -1,8 +1,9 @@
 <ion-view view-title="So.. How's that weather?">
   <ion-content class="padding">
     <h2>Current Forecast</h2>
+    <ion-header-bar>Refreshed: {{currentWeatherData.time | utcToTime}}</ion-header-bar>
     <ion-list class="list list-inset">
-      <ion-item class="item" ng-repeat="(key, value) in currentWeatherData">{{key | camelToNormal }}: {{value}}</ion-item>
+      <ion-item>{{currentWeatherData.summary}} and {{currentWeatherData.temperature}}°</ion-item>
     </ion-list>
   </ion-content>
 </ion-view>

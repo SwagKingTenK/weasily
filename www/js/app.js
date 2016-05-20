@@ -96,6 +96,22 @@ app.filter("utcToDay", function () {
   }
 });
 
+app.filter("utcToTime", function () {
+  return function (timestamp) {
+// Create a new JavaScript Date object based on the timestamp
+// multiplied by 1000 so that the argument is in milliseconds, not seconds.
+    var date = new Date(timestamp * 1000);
+// Hours part from the timestamp
+    var hours = date.getHours();
+// Minutes part from the timestamp
+    var minutes = "0" + date.getMinutes();
+// Seconds part from the timestamp
+    var seconds = "0" + date.getSeconds();
+
+    return hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+  }
+});
+
 app.config(['$ionicConfigProvider', function($ionicConfigProvider){
-  $ionicConfigProvider.tabs.position('bottom'); // other values: top 
+  $ionicConfigProvider.tabs.position('bottom'); // other values: top
 }]);

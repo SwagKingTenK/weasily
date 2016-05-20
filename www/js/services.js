@@ -6,7 +6,7 @@ angular.module('starter.services', [])
 
     return {
       getPosition: function () {
-        var loc;
+        var loc = [null, null];
         var locSet = $q.defer();
         return $ionicPlatform.ready()
           .then(function () {
@@ -44,6 +44,7 @@ angular.module('starter.services', [])
       var baseUrl = "https://api.forecast.io/forecast/bbdee2e597ea20b7dab870ccf6851838/";
       //TODO work on these damn responses
       var request = $http({
+        cache: true,
         method: 'get',
         url: baseUrl + lat + "," + lng,
         params: {
