@@ -1,7 +1,11 @@
 <ion-view view-title="So.. How's that weather?">
   <ion-content class="padding">
     <h2>Current Forecast</h2>
-    <ion-header-bar>Refreshed: {{currentWeatherData.time | utcToTime}}</ion-header-bar>
+    <ion-header-bar>
+      Refreshed: {{currentWeatherData.time | utcToTime}}
+      <br>
+      {{loc | locToCity }}
+    </ion-header-bar>
 
     <div style="text-align: center;">
       <skycon class="icon" color="blue" icon="currentWeatherData.icon"></skycon>

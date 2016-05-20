@@ -118,6 +118,16 @@ app.filter("decToPercent", function () {
   }
 });
 
+app.filter("locToCity", function ($http) {
+  return function (loc) {
+    var url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + loc[0] + ',' + loc[1] + '&sensor=true';
+    $http.get(url)
+      .success(function (data) {
+        return data;
+      })
+  }
+});
+
 app.config(['$ionicConfigProvider', function($ionicConfigProvider){
   $ionicConfigProvider.tabs.position('bottom'); // other values: top
 }]);

@@ -7,6 +7,7 @@ app.controller('SummaryCtrl', function ($scope, Weather, Location) {
     .then(function (coords) {
       Weather.getCurrent(coords[0], coords[1])
         .success(function (data) {
+          $scope.loc = [data.latitude, data.longitude];
           setupData(data.currently);
         })
         .error(function (error) {
