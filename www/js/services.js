@@ -16,6 +16,7 @@ angular.module('starter.services', [])
           return locSet.promise;
         });
       function onSuccess(coords) {
+        loc = [0, 0, 0];
         loc[0] = coords.coords.latitude;
         loc[1] = coords.coords.longitude;
         var url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + loc[0] + ',' + loc[1] + '&sensor=true';
