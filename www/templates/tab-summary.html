@@ -1,40 +1,38 @@
-<ion-view view-title="So.. How's that weather?">
-  <ion-content class="padding">
-    <h2>Current Forecast</h2>
+<ion-view view-title="{{city}}">
+  <ion-content class="padding has-header">
     <ion-header-bar>
-      Refreshed: {{currentWeatherData.time | utcToTime}}
-      <br>
-      {{loc | locToCity }}
+      Refreshed: {{time | utcToTime}}
     </ion-header-bar>
+    <h2>Current Forecast</h2>
 
-    <div style="text-align: center;">
-      <skycon class="icon" color="blue" icon="currentWeatherData.icon"></skycon>
-      <div> {{currentWeatherData.summary}} and {{currentWeatherData.temperature}}°</div>
-    </div>
+      <div style="text-align: center;">
+        <skycon class="icon" color="blue" icon="currentWeatherData.icon"></skycon>
+        <div> {{currentWeatherData.summary}} and {{currentWeatherData.temperature}}°</div>
+      </div>
 
-    <ion-list class="list list-inset">
+      <ion-list class="list list-inset">
 
 
-      <ion-item class="item-icon-left">
-        <i class="ion-umbrella icon"></i>
-        <span style="float: right">{{currentWeatherData.precipProb | decToPercent}}</span>
-      </ion-item>
+        <ion-item class="item-icon-left">
+          <i class="ion-umbrella icon"></i>
+          <span style="float: right">{{currentWeatherData.precipProb | decToPercent}}</span>
+        </ion-item>
 
-      <ion-item class="item-icon-left">
-        <i class="icon ion-flag"></i>
-        <span style="float: right">{{currentWeatherData.windSpeed}} MPH</span>
-      </ion-item>
+        <ion-item class="item-icon-left">
+          <i class="icon ion-flag"></i>
+          <span style="float: right">{{currentWeatherData.windSpeed}} MPH</span>
+        </ion-item>
 
-      <ion-item class="item-icon-left">
-        <i class="icon ion-waterdrop"></i>
-        <span style="float: right">{{currentWeatherData.humidity | decToPercent}}</span>
-      </ion-item>
+        <ion-item class="item-icon-left">
+          <i class="icon ion-waterdrop"></i>
+          <span style="float: right">{{currentWeatherData.humidity | decToPercent}}</span>
+        </ion-item>
 
-      <ion-item class="item-icon-left">
-        <i class="icon ion-eye"></i>
-        <span style="float: right">{{currentWeatherData.vis}} MILES</span>
-      </ion-item>
+        <ion-item class="item-icon-left">
+          <i class="icon ion-eye"></i>
+          <span style="float: right">{{currentWeatherData.vis}} MILES</span>
+        </ion-item>
 
-    </ion-list>
+      </ion-list>
   </ion-content>
 </ion-view>

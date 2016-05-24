@@ -1,6 +1,8 @@
-<ion-view view-title="Forecast">
-  <ion-content class="padding">
-    <h2>Current Forecast</h2>
+<ion-view view-title="{{city}}">
+  <ion-content class="padding has-header">
+    <ion-header-bar>
+      Refreshed: {{time | utcToTime}}
+    </ion-header-bar>
     <ion-list class="list list-inset ">
       <ion-item class="item forecast-day row-no-padding" ng-repeat="(key, value) in forecastWeatherData">
 

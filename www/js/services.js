@@ -1,46 +1,47 @@
 angular.module('starter.services', [])
 
-  .factory('Location', function ($ionicPlatform, $q) {
+  .service('Location', function ($ionicPlatform, $q, $http) {
+    var positionOptions = {timeout: 3000, enableHighAccuracy: true, maximumAge: 0};
+    var loc;
 
-    var positionOptions = {timeout: 10000, enableHighAccuracy: true, maximumAge: 0};
+    this.getPosition = function () {
+      return loc;
+    };
 
-    return {
-      getPosition: function () {
-        var loc = [null, null];
-        var locSet = $q.defer();
-        return $ionicPlatform.ready()
-          .then(function () {
-            navigator.geolocation.getCurrentPosition(onSuccess, onError, positionOptions);
-            return locSet.promise.then(function () {
-              return loc;
-            })
-          });
-        function onSuccess(coords) {
-          loc[0] = coords.coords.latitude;
-          loc[1] = coords.coords.longitude;
-          locSet.resolve();
-        }
-
-        function onError(error) {
-          loc = [38, 85];
-          locSet.resolve();
-        }
-      },
-      
-      setPosition: function () {
-         
+    this.setPosition = function () {
+      var locSet = $q.defer();
+      return $ionicPlatform.ready()
+        .then(function () {
+          navigator.geolocation.getCurrentPosition(onSuccess, onError, positionOptions);
+          return locSet.promise;
+        });
+      function onSuccess(coords) {
+        loc[0] = coords.coords.latitude;
+        loc[1] = coords.coords.longitude;
+        var url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + loc[0] + ',' + loc[1] + '&sensor=true';
+        $http.get(url)
+          .success(function (data) {
+            loc[2] = data.results[1].formatted_address;
+            locSet.resolve() ;
+          })
+          .error(function (data) {
+            loc[2] = loc[0] + "," + loc[1];
+            locSet.resolve() ;
+          })
       }
-    }
+
+      function onError(error) {
+        loc = [38, 85, "Louisville, KY, USA"];
+        locSet.resolve() ;
+      }
+    };
   })
 
   .service('Weather', function ($http) {
 
-    return ({
-      getCurrent: getCurrent
-    });
+  
 
-
-    function getCurrent(lat, lng) {
+   this.getCurrent = function(lat, lng) {
       var baseUrl = "https://api.forecast.io/forecast/bbdee2e597ea20b7dab870ccf6851838/";
       //TODO work on these damn responses
       var request = $http({
@@ -53,6 +54,8 @@ angular.module('starter.services', [])
       });
       return request;
     }
+    
+    fun
 
     // function getForecast(lat, lng) {
     //   var baseUrl = "https://api.forecast.io/forecast/bbdee2e597ea20b7dab870ccf6851838/";
