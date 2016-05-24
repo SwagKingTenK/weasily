@@ -22,40 +22,40 @@ angular.module('starter.services', [])
         $http.get(url)
           .success(function (data) {
             loc[2] = data.results[1].formatted_address;
-            locSet.resolve() ;
+            locSet.resolve();
           })
           .error(function (data) {
             loc[2] = loc[0] + "," + loc[1];
-            locSet.resolve() ;
+            locSet.resolve();
           })
       }
 
       function onError(error) {
         loc = [38, 85, "Louisville, KY, USA"];
-        locSet.resolve() ;
+        locSet.resolve();
       }
     };
   })
 
-  .service('Weather', function ($http) {
+  .service('Weather', function ($http, $q) {
 
-  
+    var data;
+    var status = $q.defer();
 
-   this.getCurrent = function(lat, lng) {
+    this.setCurrent = function (lat, lng) {
       var baseUrl = "https://api.forecast.io/forecast/bbdee2e597ea20b7dab870ccf6851838/";
       //TODO work on these damn responses
-      var request = $http({
-        cache: true,
-        method: 'get',
-        url: baseUrl + lat + "," + lng,
-        params: {
-          exclude: ['minutely', 'hourly'],
-        }
-      });
-      return request;
-    }
-    
-    fun
+      $http.get(baseUrl + lat + "," + lng + "?callback=JSON")
+        .success(function (weatherData) {
+          data = weatherData;
+          status.resolve();
+        });
+      return status.promise;
+    };
+
+    this.getCurrent = function () {
+      return data;
+    };
 
     // function getForecast(lat, lng) {
     //   var baseUrl = "https://api.forecast.io/forecast/bbdee2e597ea20b7dab870ccf6851838/";

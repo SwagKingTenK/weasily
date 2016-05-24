@@ -21,13 +21,15 @@ app.controller('SummaryCtrl', function ($scope, $rootScope, Weather, Location) {
   }
 
   function setupWeather() {
-    Weather.getCurrent($scope.loc[0], $scope.loc[1])
-      .success(function (data) {
-        setupData(data.currently);
-      })
-      .error(function (error) {
-        //TODO handle error fetch forecast.io crap
-      });
+    if(Weather.getCurrent() == null) {
+      Weather.setCurrent($scope.loc[0], $scope.loc[1])
+        .then(function () {
+          setupData(Weather.getData().currently);
+        });
+    }
+    else{
+      setupData(Weather.getCurrent().currently);
+    }
   }
 
 
@@ -71,13 +73,15 @@ app.controller('ForecastCtrl', function ($scope, $rootScope, Location, Weather) 
   }
 
   function setupWeather() {
-    Weather.getCurrent($scope.loc[0], $scope.loc[1])
-      .success(function (data) {
-        $scope.forecastWeatherData = data.daily.data;
-      })
-      .error(function (error) {
-        //TODO handle error fetch forecast.io crap
-      });
+    if(Weather.getCurrent() != null){
+      $scope.forecastWeatherData = Weather.getCurrent().daily.data;
+    }
+    else {
+      Weather.setCurrent($scope.loc[0], $scope.loc[1])
+        .then(function () {
+          $scope.forecastWeatherData = Weather.getCurrent().daily.data;
+        })
+    }
   }
  
 
