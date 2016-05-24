@@ -24,7 +24,7 @@ app.controller('SummaryCtrl', function ($scope, $rootScope, Weather, Location) {
     if(Weather.getCurrent() == null) {
       Weather.setCurrent($scope.loc[0], $scope.loc[1])
         .then(function () {
-          setupData(Weather.getData().currently);
+          setupData(Weather.getCurrent().currently);
         });
     }
     else{

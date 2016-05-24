@@ -45,7 +45,7 @@ angular.module('starter.services', [])
     this.setCurrent = function (lat, lng) {
       var baseUrl = "https://api.forecast.io/forecast/bbdee2e597ea20b7dab870ccf6851838/";
       //TODO work on these damn responses
-      $http.get(baseUrl + lat + "," + lng + "?callback=JSON")
+      $http.get(baseUrl + lat + "," + lng)
         .success(function (weatherData) {
           data = weatherData;
           status.resolve();
