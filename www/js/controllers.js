@@ -1,8 +1,16 @@
 var app = angular.module('starter.controllers', ['starter.services']);
 
 
-app.controller('SummaryCtrl', function ($scope, $rootScope, Weather, Location) {
+app.controller('SummaryCtrl', function ($scope, $rootScope, $ionicPopup, Weather, Location) {
   //TODO cache this
+
+  var loadingPopup = $ionicPopup.show({
+    title: "Loading...",
+    subTitle: "We are loading your most updated weather information.",
+    scope: $scope,
+
+  });
+
   if (Location.getPosition() != null) {
     var loc = Location.getPosition();
     $scope.loc = loc;
@@ -15,7 +23,7 @@ app.controller('SummaryCtrl', function ($scope, $rootScope, Weather, Location) {
         var loc = Location.getPosition();
         // $scope.loc[0] = loc[0], $scope.loc[1] = loc[1], $scope.city = loc[2];
         $scope.loc = loc;
-        $scope.city = $scope.loc[2]; 
+        $scope.city = $scope.loc[2];
         setupWeather();
       });
   }
@@ -30,6 +38,7 @@ app.controller('SummaryCtrl', function ($scope, $rootScope, Weather, Location) {
     else{
       setupData(Weather.getCurrent().currently);
     }
+    loadingPopup.close(); //End the popup scree after the data has been loaded.
   }
 
 
@@ -45,7 +54,6 @@ app.controller('SummaryCtrl', function ($scope, $rootScope, Weather, Location) {
       vis: data.visibility,
     };
     $rootScope.time = $scope.currentWeatherData.time;
-
   }
 
 
@@ -67,7 +75,7 @@ app.controller('ForecastCtrl', function ($scope, $rootScope, Location, Weather) 
         var loc = Location.getPosition();
         // $scope.loc[0] = loc[0], $scope.loc[1] = loc[1], $scope.city = loc[2];
         $scope.loc = loc;
-        $scope.city = $scope.loc[2]; 
+        $scope.city = $scope.loc[2];
         setupWeather();
       });
   }
@@ -83,7 +91,7 @@ app.controller('ForecastCtrl', function ($scope, $rootScope, Location, Weather) 
         })
     }
   }
- 
+
 
 });
 
