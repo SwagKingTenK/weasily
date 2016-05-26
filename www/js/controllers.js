@@ -8,7 +8,6 @@ app.controller('SummaryCtrl', function ($scope, $rootScope, $ionicPopup, Weather
       title: "Loading...",
       subTitle: "We are loading your most updated weather information.",
       scope: $scope,
-
     });
 
     if (Location.getPosition() != null) {
@@ -21,7 +20,6 @@ app.controller('SummaryCtrl', function ($scope, $rootScope, $ionicPopup, Weather
       Location.setPosition()
         .then(function () {
           var loc = Location.getPosition();
-          // $scope.loc[0] = loc[0], $scope.loc[1] = loc[1], $scope.city = loc[2];
           $scope.loc = loc;
           $scope.city = $scope.loc[2];
           setupWeather();
@@ -29,21 +27,18 @@ app.controller('SummaryCtrl', function ($scope, $rootScope, $ionicPopup, Weather
     }
 
     $scope.refreshWeather = function () {
-      //TODO figure out what is wrong w/ this and why the location is returning undefined 
       Location.setPosition()
         .then(function () {
-          var loc = Location.getPosition();
-          // $scope.loc[0] = loc[0], $scope.loc[1] = loc[1], $scope.city = loc[2];
-          $scope.loc = loc;
-          $scope.city = $scope.loc[2];
-          Weather.setCurrent($scope.loc[0], $scope.loc[1])
+          Weather.setCurrent(Location.getPosition()[0], Location.getPosition()[1])
             .then(function () {
               setupData(Weather.getCurrent().currently);
+              $scope.city = Location.getPosition()[2];
               $scope.$broadcast('scroll.refreshComplete');
             });
         });
     };
-    function setupWeather() {
+
+  function setupWeather() {
       if (Weather.getCurrent() == null) {
         Weather.setCurrent($scope.loc[0], $scope.loc[1])
           .then(function () {

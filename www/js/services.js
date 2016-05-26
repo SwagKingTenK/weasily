@@ -1,7 +1,7 @@
 angular.module('starter.services', [])
 
   .service('Location', function ($ionicPlatform, $q, $http) {
-    var positionOptions = {timeout: 3000, enableHighAccuracy: true, maximumAge: 0};
+    var positionOptions = {timeout: 5000, enableHighAccuracy: true, maximumAge: 0};
     var loc;
 
     this.getPosition = function () {
@@ -10,19 +10,25 @@ angular.module('starter.services', [])
 
     this.setPosition = function () {
       var locSet = $q.defer();
+
       return $ionicPlatform.ready()
         .then(function () {
           navigator.geolocation.getCurrentPosition(onSuccess, onError, positionOptions);
           return locSet.promise;
         });
+
       function onSuccess(coords) {
-        loc = [0, 0, 0];
-        loc[0] = coords.coords.latitude;
-        loc[1] = coords.coords.longitude;
+        loc = [coords.coords.latitude, coords.coords.longitude, ""];
+        //On success, we get the city name from Google API
         var url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + loc[0] + ',' + loc[1] + '&sensor=true';
         $http.get(url)
           .success(function (data) {
-            loc[2] = data.results[1].formatted_address;
+            if (data.results.length > 1) {
+              loc[2] = data.results[1].formatted_address;
+            }
+            else {
+              loc[2] = "No name available"
+            }
             locSet.resolve();
           })
           .error(function (data) {
@@ -32,7 +38,7 @@ angular.module('starter.services', [])
       }
 
       function onError(error) {
-        loc = [38, 85, "Louisville, KY, USA"];
+        loc = [38.2527, 85.7585, "(Error) Louisville, KY"];
         locSet.resolve();
       }
     };
@@ -42,16 +48,14 @@ angular.module('starter.services', [])
 
     var data;
     var status = $q.defer();
+    var baseUrl = "https://api.forecast.io/forecast/bbdee2e597ea20b7dab870ccf6851838/";
 
     this.setCurrent = function (lat, lng) {
-      var baseUrl = "https://api.forecast.io/forecast/bbdee2e597ea20b7dab870ccf6851838/";
-      //TODO work on these damn responses
-      $http.get(baseUrl + lat + "," + lng)
+      var url = baseUrl + lat + "," + lng;
+      return $http.get(url)
         .success(function (weatherData) {
           data = weatherData;
-          status.resolve();
         });
-      return status.promise;
     };
 
     this.getCurrent = function () {
