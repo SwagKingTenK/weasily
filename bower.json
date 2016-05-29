@@ -5,7 +5,6 @@
     "ionic": "driftyco/ionic-bower#1.3.1"
   },
   "dependencies": {
-    "angular-skycons": "^2.0.2",
-    "ngstorage": "^0.3.10"
+    "angular-skycons": "^2.0.2"
   }
 }
