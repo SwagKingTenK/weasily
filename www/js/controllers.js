@@ -106,12 +106,7 @@ app.controller('ForecastCtrl', function ($scope, $rootScope, Location, Weather) 
 
 });
 
-app.controller('ChatDetailCtrl', function ($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
-});
 
 app.controller('AccountCtrl', function ($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
+
 });
