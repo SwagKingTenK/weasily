@@ -1,9 +1,12 @@
 var app = angular.module('starter.controllers', ['starter.services']);
 
 
-app.controller('SummaryCtrl', function ($scope, $rootScope, $ionicPopup, Weather, Location) {
+app.controller('SummaryCtrl', function ($scope, $rootScope, $ionicPopup, Weather, Location, Storage) {
     //TODO cache this
 
+
+  $scope.degreeUnit = Storage.getMetricOption() == "us" ? "F" : "C";
+ 
     var loadingPopup = $ionicPopup.show({
       title: "Loading...",
       subTitle: "We are loading your most updated weather information.",
@@ -107,6 +110,21 @@ app.controller('ForecastCtrl', function ($scope, $rootScope, Location, Weather) 
 });
 
 
-app.controller('AccountCtrl', function ($scope) {
+app.controller('AccountCtrl', function ($scope, $rootScope, Storage) {
+
+  $scope.metricOption = Storage.getMetricOption() == "ca" ? true : false;
+  //If the storage item is CA, it is true.
+
+  $scope.metricChange = function () {
+    if ($scope.metricOption) {
+      Storage.setMetricOption("us");
+      $scope.metricOption = !$scope.metricOption;
+    }
+
+    else {
+      Storage.setMetricOption("ca");
+      $scope.metricOption = !$scope.metricOption;
+    }
+  }
 
 });

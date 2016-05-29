@@ -44,14 +44,14 @@ angular.module('starter.services', [])
     };
   })
 
-  .service('Weather', function ($http, $q) {
+  .service('Weather', function ($http, $q, Storage) {
 
     var data;
     var status = $q.defer();
     var baseUrl = "https://api.forecast.io/forecast/bbdee2e597ea20b7dab870ccf6851838/";
 
     this.setCurrent = function (lat, lng) {
-      var url = baseUrl + lat + "," + lng;
+      var url = baseUrl + lat + "," + lng + "?units=" + Storage.getMetricOption();
       return $http.get(url)
         .success(function (weatherData) {
           data = weatherData;
@@ -73,4 +73,23 @@ angular.module('starter.services', [])
     //   return request;
     // }
 
-  });
+  })
+
+  .service("Storage", function () {
+
+    this.setMetricOption = function (val) {
+      if (typeof (Storage) != "undefined") {
+        window.localStorage.setItem("metricSystem", val);
+      }
+    };
+
+    this.getMetricOption = function () {
+      if (typeof (Storage) != "undefined") {
+        return window.localStorage.getItem("metricSystem");
+      }
+      else return "us";
+      //The default option is USA system.
+    }
+
+  })
+;
