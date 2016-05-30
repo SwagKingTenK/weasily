@@ -31,7 +31,7 @@
           <span style="float: right">{{currentWeatherData.humidity | decToPercent}}</span>
         </ion-item>
 
-        <ion-item class="item-icon-left">
+      <ion-item class="item-icon-left" ng-if="currentWeatherData.vis">
           <i class="icon ion-eye"></i>
           <span style="float: right">{{currentWeatherData.vis}}</span>
         </ion-item>
