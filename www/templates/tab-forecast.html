@@ -1,4 +1,4 @@
-<ion-view view-title="{{city}}">
+<ion-view view-title="{{city}}" ng-controller="ForecastCtrl">
   <ion-content class="padding has-header">
     <ion-header-bar>
       Refreshed: {{time | utcToTime}}
@@ -27,7 +27,7 @@
 
         <ion-item class="item-icon-left">
           <i class="icon ion-flag"></i>
-          <span style="float: right">{{value.windSpeed}} MPH</span>
+          <span style="float: right">{{value.windSpeed}}</span>
         </ion-item>
 
         <ion-item class="item-icon-left">
@@ -37,7 +37,7 @@
 
         <ion-item class="item-icon-left">
           <i class="icon ion-eye"></i>
-          <span style="float: right">{{value.visibility}} MILES</span>
+          <span style="float: right">{{value.visibility}}</span>
         </ion-item>
 
       </ion-item>

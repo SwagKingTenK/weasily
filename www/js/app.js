@@ -52,6 +52,7 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.se
 
       .state('tab.forecast', {
         url: '/forecast',
+        cache: false,
         views: {
           'tab-forecast': {
             templateUrl: 'templates/tab-forecast.html',

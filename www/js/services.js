@@ -1,7 +1,7 @@
 angular.module('starter.services', [])
 
   .service('Location', function ($ionicPlatform, $q, $http) {
-    var positionOptions = {timeout: 5000, enableHighAccuracy: true, maximumAge: 0};
+    var positionOptions = {timeout: 3000, enableHighAccuracy: true, maximumAge: 0};
     var loc;
 
     this.getPosition = function () {
@@ -27,7 +27,7 @@ angular.module('starter.services', [])
               loc[2] = data.results[1].formatted_address;
             }
             else {
-              loc[2] = "No name available"
+              loc[2] = "The Middle of Nowhere..";
             }
             locSet.resolve();
           })

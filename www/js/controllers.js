@@ -5,8 +5,9 @@ app.controller('SummaryCtrl', function ($scope, $rootScope, $ionicPopup, Weather
     //TODO cache this
 
 
-  $scope.degreeUnit = Storage.getMetricOption() == "us" ? "F" : "C";
- 
+  // $scope.degreeUnit = Storage.getMetricOption() == "us" ? "F" : "C";
+  //^^Not needed ATM
+
     var loadingPopup = $ionicPopup.show({
       title: "Loading...",
       subTitle: "We are loading your most updated weather information.",
@@ -76,6 +77,7 @@ app.controller('SummaryCtrl', function ($scope, $rootScope, $ionicPopup, Weather
 
 app.controller('ForecastCtrl', function ($scope, $rootScope, Location, Weather) {
 
+  console.log("ForecastCtrl ran...");
   //TODO cache this
   if (Location.getPosition() != null) {
     var loc = Location.getPosition();
@@ -125,6 +127,7 @@ app.controller('AccountCtrl', function ($scope, $rootScope, Storage) {
       Storage.setMetricOption("ca");
       $scope.metricOption = !$scope.metricOption;
     }
+
   }
 
 });
