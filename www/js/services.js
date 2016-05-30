@@ -85,9 +85,10 @@ angular.module('starter.services', [])
 
     this.getMetricOption = function () {
       if (typeof (Storage) != "undefined") {
-        return window.localStorage.getItem("metricSystem");
+        if (window.localStorage.getItem("metricSystem") == "us" || window.localStorage.getItem("metricSystem") == "ca")
+          return window.localStorage.getItem("metricSystem");
       }
-      else return "us";
+      return "us";
       //The default option is USA system.
     }
 
