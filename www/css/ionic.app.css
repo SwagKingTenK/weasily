@@ -26,6 +26,7 @@ $dark:                            #444 !default;
   used under CC BY http://creativecommons.org/licenses/by/4.0/
   Modified icons to fit ionicon’s grid from original.
 */
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500,700,900);
 @font-face {
   font-family: "Ionicons";
   src: url("../lib/ionic/fonts/ionicons.eot?v=2.0.1");
@@ -4827,7 +4828,7 @@ a.subdued:last-child {
 }
 
 .bar.bar-clear {
-  border: none;
+    border: none;
   background: none;
   color: #fff;
 }
@@ -4854,7 +4855,7 @@ a.subdued:last-child {
 .bar.bar-light {
   border-color: #ddd;
   background-color: white;
-  background-image: linear-gradient(0deg, #ddd, #ddd 50%, transparent 50%);
+    background-image: linear-gradient(0deg, #ddd, #ddd 50%, transparent 50%);
   color: #444;
 }
 
@@ -6843,11 +6844,9 @@ ion-tabs.tabs-striped.tabs-color-active-dark .tab-item.tab-item-active, ion-tabs
     min-height: 240px;
     width: 60%;
   }
-
   .modal.ng-leave-active {
     bottom: 0;
   }
-
   .platform-ios.platform-cordova .modal-wrapper .modal .bar-header:not(.bar-subheader) {
     height: 44px;
   }
@@ -6855,36 +6854,29 @@ ion-tabs.tabs-striped.tabs-color-active-dark .tab-item.tab-item-active, ion-tabs
   .platform-ios.platform-cordova .modal-wrapper .modal .bar-header:not(.bar-subheader) > * {
     margin-top: 0;
   }
-
   .platform-ios.platform-cordova .modal-wrapper .modal .tabs-top > .tabs,
   .platform-ios.platform-cordova .modal-wrapper .modal .tabs.tabs-top {
     top: 44px;
   }
-
   .platform-ios.platform-cordova .modal-wrapper .modal .has-header,
   .platform-ios.platform-cordova .modal-wrapper .modal .bar-subheader {
     top: 44px;
   }
-
   .platform-ios.platform-cordova .modal-wrapper .modal .has-subheader {
     top: 88px;
   }
-
   .platform-ios.platform-cordova .modal-wrapper .modal .has-header.has-tabs-top {
     top: 93px;
   }
-
   .platform-ios.platform-cordova .modal-wrapper .modal .has-header.has-subheader.has-tabs-top {
     top: 137px;
   }
-
   .modal-backdrop-bg {
     -webkit-transition: opacity 300ms ease-in-out;
     transition: opacity 300ms ease-in-out;
     background-color: #000;
     opacity: 0;
   }
-
   .active .modal-backdrop-bg {
     opacity: 0.5;
   }
