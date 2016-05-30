@@ -77,7 +77,6 @@ app.controller('SummaryCtrl', function ($scope, $rootScope, $ionicPopup, Weather
 
 app.controller('ForecastCtrl', function ($scope, $rootScope, Location, Weather) {
 
-  console.log("ForecastCtrl ran...");
   //TODO cache this
   if (Location.getPosition() != null) {
     var loc = Location.getPosition();

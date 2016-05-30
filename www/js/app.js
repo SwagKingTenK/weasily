@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngResource', 'angular-skycons'])
 
-  .run(function ($ionicPlatform) {
+  .run(function ($ionicPlatform, $ionicPopup) {
     $ionicPlatform.ready(function () {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -20,7 +20,26 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.se
         // org.apache.cordova.statusbar required
         StatusBar.styleDefault();
       }
+
+      //Start of no-network popup handler
+
+      if (window.Connection) {
+        // console.log("Testing data connection error catch..");
+        if (navigator.connection.type == Connection.NONE) {
+          $ionicPopup.alert({
+            title: "Data Error",
+            content: "Sorry, Weasily is useless without a data connection. Please establish a connection and try again."
+          })
+            .then(function () {
+              ionic.Platform.exitApp();
+            })
+        }
+      }
+
+      //End no-network...
     });
+
+
   })
 
   .config(function ($stateProvider, $urlRouterProvider) {
@@ -78,8 +97,8 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.se
 
 
 //TODO move this filter into its own module
-app.filter("camelToNormal", function(){
-  return function(text) {
+app.filter("camelToNormal", function () {
+  return function (text) {
     var newText = text.replace(/([A-Z])/g, ' $1');
     newText.replace(/^./, function (str) {
       return str.toUpperCase();
@@ -120,7 +139,6 @@ app.filter("decToPercent", function () {
 });
 
 
-
-app.config(['$ionicConfigProvider', function($ionicConfigProvider){
+app.config(['$ionicConfigProvider', function ($ionicConfigProvider) {
   $ionicConfigProvider.tabs.position('bottom'); // other values: top
 }]);
