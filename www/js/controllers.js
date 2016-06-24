@@ -57,6 +57,7 @@ app.controller('SummaryCtrl', function ($scope, $rootScope, $ionicPopup, Weather
 
 
     function setupData(data) {
+      Weather.logInstance($scope.loc[0], $scope.loc[1]);
       $scope.currentWeatherData = {
         time: data.time,
         summary: data.summary,
