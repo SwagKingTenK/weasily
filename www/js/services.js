@@ -47,9 +47,7 @@ angular.module('starter.services', [])
   .service('Weather', function ($http, $q, Storage) {
 
     var data;
-    var status = $q.defer();
     var baseUrl = "https://api.forecast.io/forecast/bbdee2e597ea20b7dab870ccf6851838/";
-    var recordsUrl = "https://weasily:googleplaydeveloperconsole@weasilyrecords.herokuapp.com/records";
 
     this.setCurrent = function (lat, lng) {
       var url = baseUrl + lat + "," + lng + "?units=" + Storage.getMetricOption();
@@ -57,20 +55,6 @@ angular.module('starter.services', [])
         .success(function (weatherData) {
           data = weatherData;
         });
-    };
-
-    this.logInstance = function (lat, lng) {
-      return $http({
-        method: 'POST',
-        url: recordsUrl,
-        data: {
-          record: {
-            uuid: device.uuid,
-            lat: lat,
-            lng: lng
-          }
-        }
-      })
     };
 
     this.getCurrent = function () {
